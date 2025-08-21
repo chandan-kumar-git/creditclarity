@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   SidebarProvider,
   Sidebar,
@@ -15,7 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Bell, Settings } from 'lucide-react';
 
-import { ISSUERS } from '@/lib/mock-data';
+import { getIssuers } from '@/lib/mock-data';
 import type { Issuer } from '@/lib/types';
 import { IssuerCard } from '@/components/dashboard/issuer-card';
 import { IssuerDetails } from '@/components/dashboard/issuer-details';
@@ -23,11 +23,24 @@ import { Filters } from '@/components/dashboard/filters';
 import { Alerts } from '@/components/dashboard/alerts';
 import { Logo } from '@/components/logo';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function DashboardPage() {
+  const [issuers, setIssuers] = useState<Issuer[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedIssuer, setSelectedIssuer] = useState<Issuer | null>(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [assetClassFilter, setAssetClassFilter] = useState('all');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      const data = await getIssuers();
+      setIssuers(data);
+      setIsLoading(false);
+    };
+    fetchData();
+  }, []);
 
   const handleViewDetails = (issuer: Issuer) => {
     setSelectedIssuer(issuer);
@@ -36,18 +49,17 @@ export default function DashboardPage() {
 
   const handleCloseDetails = () => {
     setIsDetailsOpen(false);
-    // Delay clearing to allow for exit animation
     setTimeout(() => setSelectedIssuer(null), 300);
   };
 
-  const assetClasses = useMemo(() => [...new Set(ISSUERS.map(i => i.assetClass))], []);
+  const assetClasses = useMemo(() => [...new Set(issuers.map(i => i.assetClass))], [issuers]);
 
   const filteredIssuers = useMemo(() => {
     if (assetClassFilter === 'all') {
-      return ISSUERS;
+      return issuers;
     }
-    return ISSUERS.filter(i => i.assetClass === assetClassFilter);
-  }, [assetClassFilter]);
+    return issuers.filter(i => i.assetClass === assetClassFilter);
+  }, [assetClassFilter, issuers]);
 
   return (
     <SidebarProvider>
@@ -97,11 +109,19 @@ export default function DashboardPage() {
         </header>
 
         <main className="flex-1 p-4 sm:p-6">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {filteredIssuers.map((issuer) => (
-              <IssuerCard key={issuer.id} issuer={issuer} onDetailsClick={handleViewDetails} />
-            ))}
-          </div>
+          {isLoading ? (
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {[...Array(6)].map((_, i) => (
+                <CardSkeleton key={i} />
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {filteredIssuers.map((issuer) => (
+                <IssuerCard key={issuer.id} issuer={issuer} onDetailsClick={handleViewDetails} />
+              ))}
+            </div>
+          )}
         </main>
       </SidebarInset>
 
@@ -113,3 +133,13 @@ export default function DashboardPage() {
     </SidebarProvider>
   );
 }
+
+const CardSkeleton = () => (
+  <div className="flex flex-col space-y-3">
+    <Skeleton className="h-[125px] w-full rounded-xl" />
+    <div className="space-y-2">
+      <Skeleton className="h-4 w-3/4" />
+      <Skeleton className="h-4 w-1/2" />
+    </div>
+  </div>
+);

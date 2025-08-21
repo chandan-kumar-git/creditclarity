@@ -110,3 +110,19 @@ export const ALERTS: Alert[] = [
   { id: '2', issuerName: 'Microsoft Corp.', message: 'Score increased 15 points after Activision deal closure.', date: '2023-06-10', severity: 'medium' },
   { id: '3', issuerName: 'JPMorgan Chase & Co.', message: 'Negative trend detected over last 90 days.', date: '2023-06-01', severity: 'low' },
 ];
+
+export const getIssuers = async (): Promise<Issuer[]> => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(ISSUERS);
+    }, 500);
+  });
+};
+
+export const getAlerts = async (): Promise<Alert[]> => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(ALERTS);
+    }, 500);
+  });
+};
