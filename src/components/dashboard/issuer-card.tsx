@@ -20,7 +20,7 @@ const TrendIcon = ({ trend }: { trend: Issuer['longTermTrend'] }) => {
 
 export function IssuerCard({ issuer, onDetailsClick }: IssuerCardProps) {
   return (
-    <Card className="flex flex-col transition-shadow duration-300 hover:shadow-lg">
+    <Card className="flex flex-col transition-all duration-300 hover:shadow-xl hover:scale-105">
       <CardHeader>
         <div className="flex justify-between items-start">
             <div>
