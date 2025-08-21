@@ -39,21 +39,30 @@ const prompt = ai.definePrompt({
   name: 'generateScoreExplanationPrompt',
   input: {schema: GenerateScoreExplanationInputSchema},
   output: {schema: GenerateScoreExplanationOutputSchema},
-  prompt: `You are a financial analyst explaining credit score changes.
+  prompt: `You are a senior financial analyst providing a clear, concise, and professional explanation for a credit score change.
 
-  The credit score for {{issuer}} in the {{assetClass}} asset class has changed from {{oldScore}} to {{newScore}}.
+  **Issuer:** {{issuer}}
+  **Asset Class:** {{assetClass}}
+  **Score Change:** From {{oldScore}} to {{newScore}}
 
-  The following events have impacted the score change:
+  **Analysis Request:**
+  Based on the data below, generate a narrative explanation for the credit score change. The explanation should be suitable for a financial professional. It should:
+  1.  Start with a summary sentence of the score change.
+  2.  Explain the primary drivers, referencing the feature contributions. Emphasize the features with the largest positive or negative impact.
+  3.  Incorporate the recent impacting events as context for the feature changes.
+  4.  Conclude with a brief outlook or summary of the current credit standing.
+
+  **Impacting Events:**
   {{#each impactingEvents}}
   - {{this}}
   {{/each}}
 
-  The following features contributed to the score change:
+  **Feature Contribution Analysis (Feature: Contribution Value):**
   {{#each (keys featureContributions)}}
   - {{this}}: {{lookup ../featureContributions this}}
   {{/each}}
 
-  Provide a concise explanation of why the score changed, including the impacting events and feature contributions.
+  Please provide the explanation below.
   `,
 });
 
