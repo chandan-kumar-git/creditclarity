@@ -15,7 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Bell, Settings } from 'lucide-react';
 
-import { getIssuers } from '@/lib/mock-data';
+import { getIssuers } from '@/lib/data-service';
 import type { Issuer } from '@/lib/types';
 import { IssuerCard } from '@/components/dashboard/issuer-card';
 import { IssuerDetails } from '@/components/dashboard/issuer-details';

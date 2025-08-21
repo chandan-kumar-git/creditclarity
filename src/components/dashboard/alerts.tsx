@@ -1,7 +1,7 @@
 "use client";
 
 import { AlertTriangle, Bell, Info } from "lucide-react";
-import { getAlerts } from "@/lib/mock-data";
+import { getAlerts } from "@/lib/data-service";
 import { Badge } from "../ui/badge";
 import type { Alert } from "@/lib/types";
 import { useEffect, useState } from "react";
