@@ -58,8 +58,8 @@ const prompt = ai.definePrompt({
   {{/each}}
 
   **Feature Contribution Analysis (Feature: Contribution Value):**
-  {{#each (keys featureContributions)}}
-  - {{this}}: {{lookup ../featureContributions this}}
+  {{#each featureContributions}}
+  - {{@key}}: {{this}}
   {{/each}}
 
   Please provide the explanation below.
