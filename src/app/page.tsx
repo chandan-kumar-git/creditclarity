@@ -22,6 +22,7 @@ import { IssuerDetails } from '@/components/dashboard/issuer-details';
 import { Filters } from '@/components/dashboard/filters';
 import { Alerts } from '@/components/dashboard/alerts';
 import { Logo } from '@/components/logo';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 export default function DashboardPage() {
   const [selectedIssuer, setSelectedIssuer] = useState<Issuer | null>(null);
@@ -87,9 +88,12 @@ export default function DashboardPage() {
             <SidebarTrigger className="md:hidden" />
             <h1 className="text-xl font-semibold">Dashboard</h1>
           </div>
-          <Button variant="ghost" size="icon">
-            <Bell />
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="icon">
+              <Bell />
+            </Button>
+            <ThemeToggle />
+          </div>
         </header>
 
         <main className="flex-1 p-4 sm:p-6">
