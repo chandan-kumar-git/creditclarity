@@ -18,9 +18,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  experimental: {
-    serverComponentsExternalPackages: ['next-themes'],
-  },
+  serverExternalPackages: ['next-themes'],
 };
 
 export default nextConfig;
