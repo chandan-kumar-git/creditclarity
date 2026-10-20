@@ -1,8 +1,10 @@
 <div align="center">
 
-# CreditClarity
+<img src="docs/brand/wordmark.webp" alt="CreditClarity" width="100%">
 
 **Explainable credit intelligence: live creditworthiness scores for issuers, with the events and features that moved each score, explained in plain language.**
+
+[Live demo](https://creditclarity-ai.vercel.app)
 
 <img src="docs/screenshots/dashboard.webp" alt="CreditClarity dashboard: score gauges for Apple, Microsoft, Tesla and JPMorgan with alerts" width="100%">
 
