@@ -48,5 +48,3 @@ echo GEMINI_API_KEY=your_key > .env
 npm run dev              # http://localhost:9002
 npm run genkit:dev       # optional: Genkit developer UI
 ```
-
-Design notes: [docs/blueprint.md](docs/blueprint.md).
